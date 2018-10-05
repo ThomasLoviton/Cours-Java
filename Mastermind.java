@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Mastermind {
 
 	public Mastermind() {		
-		
+		// We start the Mastermind game
 		play();
 	}
 
@@ -11,30 +11,37 @@ public class Mastermind {
 		
 		System.out.println("Rappel : V -> OK | O -> Ailleurs | X -> NON");
 		System.out.println("Bienvenue au jeu du Mastermind !");
+		
+		// The user gives the length of the code and it will generate a code with this length (in an array)
 		int theLengthCode = lengthCode();
 		int tabRandomCode[] = tableauRandomCode(theLengthCode);
 		
 		boolean win = false;
 		int nbEssai = 1;
 		
+		// The user has 8 tries
 		while(win == false && nbEssai<=8) {
 			
+			// The user gives his code
 			System.out.println("Essai n° " + nbEssai);
 			int theUserCode = getUserCode(theLengthCode);
 			
 			int tabUserCode[] = tableauUserCode(theLengthCode, theUserCode);
 			
+			// Now we can compare the user's code with the random code
 			win = comparateCodes(tabUserCode, tabRandomCode, theLengthCode);
 			System.out.println("");
 
 			nbEssai++;
 		}
 		
+		// We test if the code is good
 		if(win == true) {
 			
 			System.out.println("Félicitations, vous venez de trouver le code en " + nbEssai + " essais !");
 			System.out.println("Le code était bien : " + afficherTableauRandom(tabRandomCode));
 		}
+		// We test if the code is not good
 		if(nbEssai > 8 || win==false) {
 			System.out.println("Vous n'avez pas réussi à trouver le code !");
 			System.out.println("Le code était : " + afficherTableauRandom(tabRandomCode));
@@ -44,7 +51,8 @@ public class Mastermind {
 		Scanner scan = new Scanner(System.in);
 		String saisie =scan.nextLine();
 		
-		rejouer(saisie);
+		// We ask the user if he wants to replay
+		replay(saisie);
 	}
 	
 	private int randomNumber() {
@@ -161,7 +169,7 @@ public class Mastermind {
         return liste;
 	}
 	
-	private void rejouer(String reponse) {
+	private void replay(String reponse) {
 		
 		Scanner scan = new Scanner(System.in);
 		if(!reponse.equals("Oui") && !reponse.equals("Non")) {	
@@ -177,8 +185,6 @@ public class Mastermind {
 		else if(reponse.equals("Non")) {			
 			scan.close();				
 			System.exit(0);
-		
 		}
 	}
-	
 }
